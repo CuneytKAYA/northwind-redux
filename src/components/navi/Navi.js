@@ -7,6 +7,7 @@ import {
   Nav,
   NavItem
 } from "reactstrap";
+import CartSummary from "../cart/CartSummary";
 
 export default class Navi extends Component {
   constructor(props) {
@@ -17,10 +18,10 @@ export default class Navi extends Component {
   }
 
   toggle() {
-    this.setState({ isOpen: !this.state.isOpen });
+    this.setState({ isOpen: !this.state.isOpen }); 
   }
 
-  render() { 
+  render() {
     return (
       <div>
         <Navbar color="light" light expand="md">
@@ -28,8 +29,8 @@ export default class Navi extends Component {
           <NavbarToggler onClick={this.state.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="mr-auto" navbar>
-            <NavItem>
-              </NavItem>
+              <NavItem></NavItem>
+              <CartSummary></CartSummary>
             </Nav>
           </Collapse>
         </Navbar>

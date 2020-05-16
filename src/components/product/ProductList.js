@@ -1,13 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Badge, Table } from "reactstrap";
+import { Badge, Table, Button } from "reactstrap";
 import { bindActionCreators } from "redux";
 import * as productActions from "../../redux/actions/productActions";
+import * as cartActions from "../../redux/actions/cartActions";
+import alertify from "alertifyjs"
 
 class ProductList extends Component {
   componentDidMount() {
     this.props.actions.getProducts();
   }
+
+  addToCart = (product) => {
+    this.props.actions.addToCart({ quantity: 1, product });
+    alertify.success(product.productName + " sepete eklendi.");
+  };
 
   render() {
     return (
@@ -17,26 +24,34 @@ class ProductList extends Component {
           <Badge color="success">
             {this.props.currentCategory.categoryName}
           </Badge>
-
-          <Table>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Product Name</th>
-                <th>Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.props.products.map((product) => (
-                <tr key={product.id}>
-                  <th scope="row">{product.id}</th>
-                  <td>{product.productName}</td>
-                  <td>{product.product_price}</td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
         </h3>
+        <Table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Product Name</th>
+              <th>Price</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.props.products.map((product) => (
+              <tr key={product.id}>
+                <th scope="row">{product.id}</th>
+                <td>{product.productName}</td>
+                <td>{product.product_price}</td>
+                <td>
+                  <Button outline
+                    color="success"
+                    onClick={() => this.addToCart(product)}
+                  >
+                    Add
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </div>
     );
   }
@@ -53,6 +68,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       getProducts: bindActionCreators(productActions.getProducts, dispatch),
+      addToCart: bindActionCreators(cartActions.addToCart, dispatch),
     },
   };
 }
