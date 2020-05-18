@@ -5,9 +5,11 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem
+  NavItem,
+  NavLink,
 } from "reactstrap";
 import CartSummary from "../cart/CartSummary";
+import { Link } from "react-router-dom";
 
 export default class Navi extends Component {
   constructor(props) {
@@ -18,18 +20,22 @@ export default class Navi extends Component {
   }
 
   toggle() {
-    this.setState({ isOpen: !this.state.isOpen }); 
+    this.setState({ isOpen: !this.state.isOpen });
   }
 
   render() {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">TEST APP</NavbarBrand>
+          <NavbarBrand > <Link to="/">TEST APP</Link></NavbarBrand>
           <NavbarToggler onClick={this.state.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="mr-auto" navbar>
-              <NavItem></NavItem>
+              <NavItem>
+                <NavLink>
+                  <Link to="/saveProduct">Ürün Ekle</Link>
+                </NavLink>
+              </NavItem>
               <CartSummary></CartSummary>
             </Nav>
           </Collapse>
