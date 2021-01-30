@@ -8,7 +8,7 @@ import configureStore from "./redux/reducers/configureStore";
 import "alertifyjs/build/css/alertify.min.css";
 import { BrowserRouter } from "react-router-dom";
 
-const store = configureStore();
+const store = configureStore(); 
 
 ReactDOM.render(
   <React.StrictMode>
